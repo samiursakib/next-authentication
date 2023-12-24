@@ -66,7 +66,7 @@ export default function Page() {
           />
           <div className='flex justify-between items-center'>
             <Button type='submit'>Signin</Button>
-            <Link href='/signup' className='underline text-sm'>Don't have an account?</Link>
+            <Link href='/signup' className='underline text-sm'>Don&apos;t have an account?</Link>
           </div>
         </form>
       </Form>
