@@ -30,16 +30,6 @@ export const options: NextAuthOptions = {
         } else {
           return null;
         }
-        // console.log(data);
-        // if(res.ok && data) {
-        //   if(credentials?.username === data.username && credentials?.password === data.password) {
-        //     return data;
-        //   } else {
-        //     return null;
-        //   }
-        // } else {
-        //   return null;
-        // }
       }
     }),
     GoogleProvider({
@@ -68,18 +58,5 @@ export const options: NextAuthOptions = {
     async jwt({ token, user, account, profile, isNewUser }) {
       return token;
     }
-  //   session: async ({ session, token }) => {
-  //     if(session?.user) {
-  //       session.user.name = token.uname;
-  //     }
-  //     return session;
-  //   },
-  //   async jwt({ user, token }) {
-  //     token.uname = user.name;
-  //     return token;
-  //   }
-  // },
-  // session: {
-  //   strategy: 'jwt'
   }
 };
