@@ -10,17 +10,17 @@ export const options: NextAuthOptions = {
       id: 'credentials',
       name: 'credentials',
       credentials: {
-        username: { label: 'username', type: 'text', placeholder: 'Your username' },
+        email: { label: 'email', type: 'text', placeholder: 'Your email' },
         password: { label: 'password', type: 'password' }
       },
       async authorize(credentials, req) {
-        const res = await fetch(process.env.NEXTAUTH_URL + '/api/user', {
+        const res = await fetch(process.env.NEXTAUTH_URL + '/api/signin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            username: credentials && credentials.username,
+            email: credentials && credentials.email,
             password: credentials && credentials.password
           })
         });

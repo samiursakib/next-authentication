@@ -8,10 +8,12 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import Authbox from '@/components/Authbox';
 import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 
 const formSchema = z.object({
-  username: z.string().min(3).max(50),
+  name: z.string().min(3).max(50),
   email: z.string().email(),
   password: z.string().min(8).max(16),
   confirmPassword: z.string().min(8).max(16)
@@ -21,18 +23,46 @@ const formSchema = z.object({
 });
 
 export default function Page() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      name: '',
       email: '',
       password: '',
       confirmPassword: ''
     }
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  let notify = () => {};
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const res = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          confirmPassword: values.confirmPassword
+        })
+      });
+      const data = await res.json();
+      if(res.ok) {
+        notify = () => toast(data.message);
+      }
+      notify();
+      if(data.status === 200) {
+        setTimeout(() => {
+          router.push('/signin');
+        }, 3000);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -41,12 +71,12 @@ export default function Page() {
         <form onSubmit={form.handleSubmit(onSubmit)} className='[&>*]:my-3'>
           <FormField
             control={form.control}
-            name='username'
+            name='name'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder='your username' {...field} />
+                  <Input placeholder='your full name' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -97,6 +127,7 @@ export default function Page() {
           </div>
         </form>
       </Form>
+      <Toaster />
     </Authbox>
   );
 }

@@ -8,18 +8,19 @@ import { Button } from '@/components/ui/button';
 
 const User = () => {
   const { data } = useSession();
+  const { user } = data!;
   return (
     <>
-      { data?.user ? (
+      { user ? (
           <Card className='w-[350px] flex justify-center items-center p-4'>
-            <Avatar className='w-20 h-auto object-cover'>
-              <AvatarImage src={data?.user.image as string} alt={data?.user.image as string} />
-              <AvatarFallback>CN</AvatarFallback>
+            <Avatar className='w-20 h-auto'>
+              <AvatarImage className='object-cover' src={user.image as string} alt={user.image as string} />
+              <AvatarFallback>Av</AvatarFallback>
             </Avatar>
             <CardHeader className='flex justify-start'>
-              <CardTitle>{data?.user.name}</CardTitle>
+              <CardTitle>{user.name}</CardTitle>
               <CardDescription>
-                {MdEmail} {data?.user.email} 
+                {MdEmail} {user.email} 
               </CardDescription>
             </CardHeader>
           </Card>

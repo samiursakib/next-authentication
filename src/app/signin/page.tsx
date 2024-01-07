@@ -12,7 +12,7 @@ import { signIn } from 'next-auth/react';
 
 
 const formSchema = z.object({
-  username: z.string().min(3).max(50),
+  email: z.string().min(3).max(50),
   password: z.string().min(8).max(16)
 });
 
@@ -20,14 +20,14 @@ export default function Page() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
     }
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     return await signIn('credentials', {
-      username: values.username,
+      email: values.email,
       password: values.password,
       redirect: true,
       callbackUrl: '/'
@@ -40,12 +40,12 @@ export default function Page() {
         <form onSubmit={form.handleSubmit(onSubmit)} className='[&>*]:my-3'>
           <FormField
             control={form.control}
-            name='username'
+            name='email'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder='your username' {...field} />
+                  <Input placeholder='your email' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
