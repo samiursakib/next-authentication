@@ -14,13 +14,13 @@ const User = () => {
       { user ? (
           <Card className='w-[350px] flex justify-center items-center p-4'>
             <Avatar className='w-20 h-auto'>
-              <AvatarImage className='object-cover' src={user.image as string} alt={user.image as string} />
+              <AvatarImage src={user.image as string} alt={user.image as string} />
               <AvatarFallback>Av</AvatarFallback>
             </Avatar>
             <CardHeader className='flex justify-start'>
               <CardTitle>{user.name}</CardTitle>
-              <CardDescription>
-                {MdEmail} {user.email} 
+              <CardDescription className='flex'>
+                <MdEmail className='w-4 h-auto mr-2' /> {user.email}
               </CardDescription>
             </CardHeader>
           </Card>

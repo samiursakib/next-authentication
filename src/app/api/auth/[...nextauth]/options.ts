@@ -41,6 +41,10 @@ export const options: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET as string
     })
   ],
+  session: {
+    maxAge: 60 * 60,
+    updateAge: 5 * 60
+  },
   pages: {
     signIn: '/signin',
     signOut: '/signout'
