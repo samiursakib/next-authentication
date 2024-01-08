@@ -14,7 +14,7 @@ const User = () => {
       { user ? (
           <Card className='w-[350px] flex justify-center items-center p-4'>
             <Avatar className='w-20 h-auto'>
-              <AvatarImage src={user.image as string} alt={user.image as string} />
+              <AvatarImage className='object-cover' src={user.image as string} alt={user.image as string} />
               <AvatarFallback>Av</AvatarFallback>
             </Avatar>
             <CardHeader className='flex justify-start'>
