@@ -13,9 +13,9 @@ const User = () => {
     <>
       { user ? (
           <Card className='w-[350px] flex justify-center items-center p-4'>
-            <Avatar className='w-20 h-auto'>
-              <AvatarImage className='object-cover' src={user.image as string} alt={user.image as string} />
-              <AvatarFallback>Av</AvatarFallback>
+            <Avatar className='w-20 h-20'>
+              <AvatarImage className='object-cover w-full h-auto' src={user.image as string} alt={user.image as string} />
+              <AvatarFallback className='rounded-full'>{user.name?.split(' ').map(word => word[0]).join('')}</AvatarFallback>
             </Avatar>
             <CardHeader className='flex justify-start'>
               <CardTitle>{user.name}</CardTitle>
